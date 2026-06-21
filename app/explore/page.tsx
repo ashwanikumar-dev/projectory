@@ -8,7 +8,7 @@ export default async function ExplorePage() {
   const products = await getAllApprovedProducts();
 
   return (
-    <div className="py-20">
+    <div className="py-20 mt-12">
       <div className="wrapper">
         <div className="mb-12">
           <SectionHeader

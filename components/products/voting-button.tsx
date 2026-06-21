@@ -1,4 +1,5 @@
 "use client";
+
 import {
   downvoteProductAction,
   upvoteProductAction,
@@ -40,40 +41,96 @@ export default function VotingButtons({
 
   return (
     <div
-      className="flex flex-col items-center gap-1 shrink-0"
+      className="flex flex-col items-center justify-center gap-2 shrink-0"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
     >
+      {/* Upvote */}
       <Button
         onClick={handleUpvote}
         variant="ghost"
-        size="icon-sm"
-        className={cn(
-          "h-8 w-8 text-primary ",
-          hasVoted
-            ? "bg-primary/10 text-primary hover:bg-primary/20"
-            : "hover:bg-primary/10 hover:text-primary",
-        )}
+        size="icon"
         disabled={isPending}
+        className={cn(
+          `
+        h-5
+        w-5
+
+        rounded-full
+
+        border
+        border-primary/15
+
+        bg-background/50
+
+        transition-all
+        duration-300
+
+        hover:bg-primary/10
+        hover:border-primary/30
+        hover:text-primary
+        hover:scale-105
+        `,
+          hasVoted &&
+            `
+          bg-primary/10
+          border-primary/30
+          text-primary
+          shadow-sm
+        `,
+        )}
       >
-        <ChevronUpIcon className="size-5" />
+        <ChevronUpIcon className="size-3.5" />
       </Button>
-      <span className="text-sm font-semibold transition-colors text-foreground">
+
+      {/* Vote Count */}
+      <span
+        className="
+        text-sm
+        font-semibold
+        tracking-tight
+        leading-none
+
+        transition-colors
+        duration-300
+        py-1
+      "
+      >
         {optimisticVoteCount}
       </span>
+
+      {/* Downvote */}
       <Button
         onClick={handleDownvote}
         variant="ghost"
-        size="icon-sm"
+        size="icon"
         disabled={isPending}
         className={cn(
-          "h-8 w-8 text-primary ",
-          hasVoted ? "hover:text-destructive" : "opacity-50 cursor-not-allowed",
+          `
+        h-5
+        w-5
+
+        rounded-full
+
+        border
+        border-primary/15
+
+        bg-background/50
+
+        transition-all
+        duration-300
+
+        hover:bg-destructive/10
+        hover:border-destructive/30
+        hover:text-destructive
+        hover:scale-105
+        `,
+          !hasVoted && "opacity-50 cursor-not-allowed",
         )}
       >
-        <ChevronDownIcon className="size-5" />
+        <ChevronDownIcon className="size-3.5" />
       </Button>
     </div>
   );

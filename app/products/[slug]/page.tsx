@@ -42,7 +42,7 @@ export default async function Product({
   const { name, description, websiteUrl, tags, voteCount, tagline } = product;
 
   return (
-    <div className="py-16">
+    <div className="py-16 mt-16">
       <div className="wrapper">
         <Link
           href="/explore"

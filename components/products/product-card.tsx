@@ -15,7 +15,11 @@ export default function ProductCard({ product }: { product: ProductType }) {
   const hasVoted = false;
   return (
     <Link href={`/products/${product.slug}`}>
-      <Card className="group card-hover hover:bg-primary-foreground/10 border-solid border-gray-400 min-h-50">
+
+      <Card className="group card-hover min-h-60 border border-white/10 bg-background/50 backdrop-blur-xl transition-all duration-300 hover:bg-background/70 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10 relative overflow-hidden hover:-translate-y-1">
+
+        <div className="absolute inset-0 opacity-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10 transition-opacity duration-300 group-hover:opacity-100" />
+
         <CardHeader className="flex-1">
           <div className="flex items-start gap-4">
             <div className="flex-1 min-w-0">
@@ -30,9 +34,10 @@ export default function ProductCard({ product }: { product: ProductType }) {
                   </Badge>
                 )}
               </div>
-              <CardDescription>{product.description}</CardDescription>
+              <CardDescription className="py-2">
+                {product.description}
+              </CardDescription>
             </div>
-            {/** Voting buttons */}
             <VotingButtons
               hasVoted={hasVoted}
               voteCount={product.voteCount}

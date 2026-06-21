@@ -10,7 +10,7 @@ export default function SectionHeader({
   description: string;
 }) {
   return (
-    <div className="">
+    <div className="mt-10">
       <div className="flex items-center gap-2 mb-3">
         <Icon className="size-6 text-primary" />
         <h2 className="text-3xl font-bold">{title}</h2>
