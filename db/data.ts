@@ -1,0 +1,138 @@
+// All products data - matches schema.ts structure
+export const allProducts = [
+  {
+    id: 1,
+    name: "Modern Full Stack Next.js Course",
+    slug: "modern-full-stack-nextjs-course",
+    tagline: "Learn to build modern full stack applications with Next.js",
+    description:
+      "Learn to build modern full stack applications with Next.js 16.",
+    websiteUrl: "https://nextjscourse.dev",
+    tags: ["Next.js", "Tailwind CSS", "Full Stack"],
+    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+    approvedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+    status: "approved" as const,
+    submittedBy: "john@example.com",
+    voteCount: 120,
+  },
+  {
+    id: 2,
+    name: "TaskFlow Pro",
+    slug: "taskflow-pro",
+    tagline: "Manage projects like never before",
+    description:
+      "Streamline your team's workflow with intelligent task management, automated notifications, and real-time collaboration features.",
+    websiteUrl: "https://taskflowpro.example.com",
+    tags: ["Productivity", "SaaS"],
+    createdAt: new Date("2024-01-18"),
+    approvedAt: new Date("2024-01-19"),
+    status: "approved" as const,
+    submittedBy: "mike@example.com",
+    voteCount: 87,
+  },
+  {
+    id: 3,
+    name: "CodeSnap",
+    slug: "codesnap",
+    tagline: "Beautiful code screenshots for developers",
+    description:
+      "Create stunning code screenshots with customizable themes, syntax highlighting, and export options. Perfect for documentation and social media.",
+    websiteUrl: "https://codesnap.example.com",
+    tags: ["Developer Tools", "Design"],
+    createdAt: new Date("2024-01-20"),
+    approvedAt: new Date("2024-01-21"),
+    status: "approved" as const,
+    submittedBy: "alex@example.com",
+    voteCount: 56,
+  },
+  {
+    id: 4,
+    name: "ProofyBubble",
+    slug: "proofybubble",
+    tagline: "Social proof notifications that convert visitors",
+    description:
+      "Boost your website conversions with real-time social proof notifications. Show recent purchases, sign-ups, and user activity to build trust and credibility.",
+    websiteUrl: "https://proofybubble.com",
+    tags: ["Marketing", "SaaS", "Conversion"],
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+    approvedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+    status: "approved" as const,
+    submittedBy: "proofy@example.com",
+    voteCount: 523,
+  },
+  {
+    id: 5,
+    name: "ParityKit",
+    slug: "paritykit",
+    tagline: "Price parity for global SaaS products",
+    description:
+      "Maximize your global revenue with intelligent price localization. Automatically adjust pricing based on purchasing power parity to increase conversions worldwide.",
+    websiteUrl: "https://paritykit.com",
+    tags: ["SaaS", "Pricing", "Global"],
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
+    approvedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+    status: "approved" as const,
+    submittedBy: "parity@example.com",
+    voteCount: 612,
+  },
+  {
+    id: 6,
+    name: "DataViz Pro",
+    slug: "dataviz-pro",
+    tagline: "Turn your data into beautiful visualizations",
+    description:
+      "Create interactive charts, graphs, and dashboards from any data source. Perfect for presentations, reports, and data analysis.",
+    websiteUrl: "https://datavizpro.example.com",
+    tags: ["Analytics", "Design", "SaaS"],
+    createdAt: new Date("2024-01-28"),
+    approvedAt: new Date("2024-01-29"),
+    status: "approved" as const,
+    submittedBy: "data@example.com",
+    voteCount: 234,
+  },
+  {
+    id: 7,
+    name: "EmailCraft",
+    slug: "emailcraft",
+    tagline: "Email marketing made simple and powerful",
+    description:
+      "Design, send, and track beautiful email campaigns with our intuitive drag-and-drop editor and powerful automation tools.",
+    websiteUrl: "https://emailcraft.example.com",
+    tags: ["Marketing", "Email", "SaaS"],
+    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+    approvedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+    status: "approved" as const,
+    submittedBy: "email@example.com",
+    voteCount: 378,
+  },
+  {
+    id: 8,
+    name: "APIHub",
+    slug: "apihub",
+    tagline: "Manage and monitor all your APIs in one place",
+    description:
+      "Centralized API management platform with real-time monitoring, documentation, and testing tools. Keep all your APIs organized and secure.",
+    websiteUrl: "https://apihub.example.com",
+    tags: ["Developer Tools", "API", "Infrastructure"],
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+    approvedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+    status: "approved" as const,
+    submittedBy: "api@example.com",
+    voteCount: 445,
+  },
+  {
+    id: 9,
+    name: "Developer to Leader Course",
+    slug: "developer-to-leader-course",
+    tagline: "Learn to lead a team of developers",
+    description:
+      "Learn to lead a team of developers and become a leader in your field. This course is designed for developers who want to take the next step in their career and become a leader in their field.",
+    websiteUrl: "https://developertoleader.com",
+    tags: ["Leadership", "Management", "Development"],
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    approvedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    status: "pending" as const,
+    submittedBy: "kulkarni.ankita09@gmail.com",
+    voteCount: 340,
+  },
+];
