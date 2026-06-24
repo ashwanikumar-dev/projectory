@@ -21,7 +21,7 @@ export async function getAllApprovedProducts() {
     .where(eq(products.status, "approved"))
     .orderBy(desc(products.voteCount));
 
-  return productsData;
+  return productsData;  
 }
 
 export async function getAllProducts() {

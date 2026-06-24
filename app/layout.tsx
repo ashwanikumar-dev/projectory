@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -23,11 +24,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.className} antialiased`}>
-        
         <Suspense>
           <ClerkProvider appearance={{ theme: shadcn }}>
             <Header />
             {children}
+            <Toaster
+              position="top-right"
+              richColors
+              closeButton
+              duration={7000}
+            />
             <Footer />
           </ClerkProvider>
         </Suspense>

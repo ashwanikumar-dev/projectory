@@ -3,9 +3,21 @@ import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   approveProductAction,
+  deleteProductionAction,
   rejectProductAction,
 } from "@/lib/admin/admin-actions";
 import { ProductType } from "@/types";
+import { toast } from "sonner";
+
+export async function handleDelete(productId: ProductType["id"]) {
+  try {
+    await deleteProductionAction(productId);
+    toast.success("Product deleted successfully");
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to delete product");
+  }
+}
 
 export default function AdminActions({
   status,
@@ -15,13 +27,26 @@ export default function AdminActions({
   productId: ProductType["id"];
 }) {
   const handleApprove = async () => {
-    console.log("Approve");
-    await approveProductAction(productId);
+    try {
+      console.log("Approve");
+      await approveProductAction(productId);
+      toast.success("Product approved successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to approve product");
+    }
   };
   const handleReject = async () => {
-    console.log("Reject");
-    await rejectProductAction(productId);
+    try {
+      console.log("Reject");
+      await rejectProductAction(productId);
+      toast.success("Product Rejected successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to reject product");
+    }
   };
+
   return (
     <div className="space-y-2">
       {status === "pending" && (
@@ -38,6 +63,7 @@ export default function AdminActions({
             variant="destructive"
             className="hover:cursor-pointer"
             onClick={handleReject}
+            size="sm"
           >
             <XCircleIcon className="size-4" />
             Reject

@@ -33,6 +33,10 @@ export default async function AdminPage() {
   const rejectedProducts = allProducts.filter(
     (product) => product.status === "rejected",
   );
+  const deletedProducts = allProducts.filter(
+    (product) => product.status === "deleted",
+  );
+
   return (
     <div className="py-20">
       <div className="wrapper">
@@ -71,10 +75,40 @@ export default async function AdminPage() {
 
         <section className="my-12">
           <div className="section-header-with-count">
-            <h2 className="text-2xl font-bold">All Products</h2>
+            <h2 className="text-2xl font-bold">All Approved Products</h2>
           </div>
-          <div className="space-y-4">
-            {allProducts.map((product) => (
+          <div className="grid gap-4 md:grid-cols-2">
+            {approvedProducts.map((product) => (
+              <AdminProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+        <section className="my-12">
+          <div className="section-header-with-count">
+            <h2 className="text-2xl font-bold">
+              Rejected Products ({rejectedProducts.length})
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {rejectedProducts.map((product) => (
+              <AdminProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        <section className="my-12">
+          <div className="section-header-with-count">
+            <h2 className="text-2xl font-bold">
+              Deleted Products ({deletedProducts.length})
+            </h2>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {deletedProducts.length === 0 && (
+              <EmptyState message="No deleted products" icon={InboxIcon} />
+            )}
+
+            {deletedProducts.map((product) => (
               <AdminProductCard key={product.id} product={product} />
             ))}
           </div>

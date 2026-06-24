@@ -3,10 +3,10 @@
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import { addProductAction } from "@/lib/products/product-actions";
-import { cn } from "@/lib/utils";
 import { FormState } from "@/types";
 import { Loader2Icon, SparklesIcon } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 const initialState: FormState = {
   success: false,
@@ -21,6 +21,19 @@ export default function ProductSubmitForm() {
   );
 
   const { errors, message, success } = state;
+
+  useEffect(() => {
+    if (!message) return;
+
+    if (success) {
+      toast.success("Launch Request Received 🚀", {
+        description: "Your product is now waiting for admin review.",
+      });
+    } else {
+      toast.error(message);
+    }
+  }, [message, success]);
+
   const getFieldErrors = (fieldName: string): string[] => {
     if (!errors) return [];
     return (errors as Record<string, string[]>)[fieldName] ?? [];
@@ -28,20 +41,6 @@ export default function ProductSubmitForm() {
 
   return (
     <form className="space-y-6" action={formAction}>
-      {message && (
-        <div
-          className={cn(
-            "p-4 rounded-lg border",
-            success
-              ? "bg-primary/10 border-primary text-primary"
-              : "bg-destructive/10 border-destructive text-destructive",
-          )}
-          role="alert"
-          aria-live="polite"
-        >
-          {message}
-        </div>
-      )}
       <FormField
         label="Product Name"
         name="name"
@@ -51,6 +50,7 @@ export default function ProductSubmitForm() {
         onChange={() => {}}
         error={getFieldErrors("name")}
       />
+
       <FormField
         label="Slug"
         name="slug"
@@ -76,7 +76,7 @@ export default function ProductSubmitForm() {
         label="Description"
         name="description"
         id="description"
-        placeholder="Tell us more about your product..."
+        placeholder="Describe what your product does, who it's for, and why it's useful..."
         required
         onChange={() => {}}
         error={getFieldErrors("description")}
@@ -93,6 +93,7 @@ export default function ProductSubmitForm() {
         error={getFieldErrors("websiteUrl")}
         helperText="Enter your product's website or landing page"
       />
+
       <FormField
         label="Tags"
         name="tags"
@@ -104,16 +105,21 @@ export default function ProductSubmitForm() {
         helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
       />
 
-      <Button type="submit" size="lg" className="w-full">
-        {isPending ? (
-          <Loader2Icon className="size-4 animate-spin" />
-        ) : (
-          <>
-            <SparklesIcon className="size-4" />
-            Submit Product
-          </>
-        )}
-      </Button>
+      <div className="mt-28 border-t pt-6">
+        <Button type="submit" size="lg" className="w-full" disabled={isPending}>
+          {isPending ? (
+            <>
+              <Loader2Icon className="size-4 animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            <>
+              <SparklesIcon className="size-4" />
+              Submit Product
+            </>
+          )}
+        </Button>
+      </div>
     </form>
   );
 }
