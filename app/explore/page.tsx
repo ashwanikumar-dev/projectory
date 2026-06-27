@@ -1,5 +1,6 @@
 "use cache";
 import SectionHeader from "@/components/common/section-header";
+import ProductComment from "@/components/products/product-comments-form";
 import ProductExplorer from "@/components/products/product-explorer";
 import { getAllApprovedProducts } from "@/lib/products/products-select";
 import { CompassIcon } from "lucide-react";

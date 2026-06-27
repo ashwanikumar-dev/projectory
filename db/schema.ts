@@ -20,7 +20,7 @@ export const products = pgTable(
     name: varchar("name", { length: 120 }).notNull(),
     slug: varchar("slug", { length: 140 }).notNull(),
     tagline: varchar("tagline", { length: 200 }),
-    description: text("description"),
+    description: varchar("description", { length: 300 }),
 
     // Links & media
     websiteUrl: text("website_url"),
@@ -45,5 +45,25 @@ export const products = pgTable(
     organizationIdx: index("products_organization_idx").on(
       table.organizationId,
     ),
+  }),
+);
+
+export const comments = pgTable(
+  "comments",
+  {
+    id: serial("id").primaryKey(),
+    content: text("content").notNull(),
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    productId: integer("product_id")
+      .notNull()
+      .references(() => products.id),
+
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    }).defaultNow(),
+  },
+  (table) => ({
+    productIdx: index("comments_product_idx").on(table.productId),
+    userIdx: index("comment_user_idx").on(table.userId),
   }),
 );

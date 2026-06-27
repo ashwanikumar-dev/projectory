@@ -23,3 +23,11 @@ export const productSchema = z.object({
     .min(1, { message: "Tags are required" })
     .transform((val) => val.split(",").map((tag) => tag.trim().toLowerCase())),
 });
+
+export const commentSchema = z.object({
+  content: z
+    .string()
+    .trim()
+    .min(3, { message: "Comment must be at least 3 characters long." })
+    .max(500, { message: "Comment cannot exceed 500 characters." }),
+});

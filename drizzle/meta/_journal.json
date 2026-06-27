@@ -8,6 +8,13 @@
       "when": 1781950919262,
       "tag": "0000_serious_ego",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782418889606,
+      "tag": "0001_light_moon_knight",
+      "breakpoints": true
     }
   ]
 }

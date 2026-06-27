@@ -9,14 +9,15 @@ interface FormFieldProps {
   placeholder?: string;
   required: boolean;
   onChange: (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
-  error: string[];
+  error?: string[];
   helperText?: string;
   textarea?: boolean;
 }
+
+const fieldClass =
+  "rounded-2xl border border-border/40 bg-background/60 backdrop-blur-xl px-4 text-sm shadow-[0_8px_24px_rgba(0,0,0,.05)] transition-all duration-300 placeholder:text-muted-foreground/60 hover:border-primary/30 hover:bg-background/80 focus-visible:border-primary/40 focus-visible:bg-background focus-visible:ring-2 focus-visible:ring-primary/15 disabled:cursor-not-allowed disabled:opacity-60";
 
 export const FormField = ({
   label,
@@ -30,40 +31,22 @@ export const FormField = ({
   textarea,
 }: FormFieldProps) => {
   return (
-    <div className="space-y-2">
-      <Label className="mb-2 block text-sm font-medium" htmlFor={id}>
+    <div className="space-y-3">
+      <Label
+        className="mb-2 block text-sm font-semibold tracking-wide"
+        htmlFor={id}
+      >
         {label}
       </Label>
+
       {textarea ? (
         <Textarea
           id={id}
           name={name}
           placeholder={placeholder}
           required={required}
-          onChange={
-            onChange as (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-          }
-          className="
-    min-h-[140px]
-    resize-y
-    rounded-xl
-    border-border/50
-    bg-muted/20
-    px-4
-    py-3
-    text-sm
-    leading-6
-    shadow-sm
-    transition-all
-    duration-200
-    placeholder:text-muted-foreground/70
-    hover:border-primary/20
-    hover:bg-muted/30
-    focus-visible:border-primary/40
-    focus-visible:bg-background
-    focus-visible:ring-4
-    focus-visible:ring-primary/10
-  "
+          onChange={onChange}
+          className={`min-h-36 resize-y py-3 leading-7 ${fieldClass}`}
         />
       ) : (
         <Input
@@ -71,32 +54,22 @@ export const FormField = ({
           name={name}
           placeholder={placeholder}
           required={required}
-          onChange={
-            onChange as (e: React.ChangeEvent<HTMLInputElement>) => void
-          }
-          className="
-    h-12
-    rounded-xl
-    border-border/50
-    bg-muted/20
-    px-4
-    text-sm
-    transition-all
-    duration-200
-    placeholder:text-muted-foreground
-    hover:bg-muted/30
-    hover:border-primary/20
-    focus-visible:border-primary/40
-    focus-visible:bg-background
-    focus-visible:ring-4
-    focus-visible:ring-primary/10
-  "
+          onChange={onChange}
+          className={`h-12 ${fieldClass}`}
         />
       )}
+
       {helperText && (
-        <p className="mt-2 text-xs text-muted-foreground">{helperText}</p>
+        <p className="mt-2 text-xs leading-5 text-muted-foreground">
+          {helperText}
+        </p>
       )}
-      {error && <p className="text-sm text-destructive">{error.join(", ")}</p>}
+
+      {error?.length ? (
+        <div className="mt-3 rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+          {error.join(", ")}
+        </div>
+      ) : null}
     </div>
   );
 };

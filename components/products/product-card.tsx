@@ -5,54 +5,68 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "../ui/badge";
+import VotingButtons from "./voting-button";
+import { ProductType } from "@/types";
 import { StarIcon } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
-import { ProductType } from "@/types";
-import VotingButtons from "./voting-button";
 
 export default function ProductCard({ product }: { product: ProductType }) {
   const hasVoted = false;
+
   return (
-    <Link href={`/products/${product.slug}`}>
+    <Link href={`/products/${product.slug}`} className="group block">
+      <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/40 bg-background/60 shadow-[0_12px_35px_rgba(0,0,0,.08)] backdrop-blur-3xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_20px_50px_rgba(139,92,246,.15)]">
+        {/* Glow */}
+        <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-violet-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      <Card className="group card-hover min-h-60 border border-white/10 bg-background/50 backdrop-blur-xl transition-all duration-300 hover:bg-background/70 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10 relative overflow-hidden hover:-translate-y-1">
-
-        <div className="absolute inset-0 opacity-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10 transition-opacity duration-300 group-hover:opacity-100" />
-
-        <CardHeader className="flex-1">
-          <div className="flex items-start gap-4">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <CardTitle className="text-lg group-hover:text-primary transition-colors">
+        <CardHeader className="flex-1 pb-5">
+          <div className="flex items-start justify-between gap-5">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <CardTitle className="text-xl transition-colors group-hover:text-primary">
                   {product.name}
                 </CardTitle>
+
                 {product.voteCount > 100 && (
-                  <Badge className="gap-1 bg-primary text-primary-foreground">
-                    <StarIcon className="size-3 fill-current" />
+                  <Badge className="rounded-full bg-linear-to-r from-amber-500 to-orange-500 px-3 text-white">
+                    <StarIcon className="mr-1 size-3 fill-current" />
                     Featured
                   </Badge>
                 )}
               </div>
-              <CardDescription className="py-2">
+
+              <CardDescription className="mt-3 line-clamp-3 min-h-21 leading-6">
                 {product.description}
               </CardDescription>
             </div>
-            <VotingButtons
-              hasVoted={hasVoted}
-              voteCount={product.voteCount}
-              productId={product.id}
-            />
+
+            <div className="shrink-0 rounded-2xl border border-border/40 bg-background/60 p-2 backdrop-blur-xl">
+              <VotingButtons
+                hasVoted={hasVoted}
+                voteCount={product.voteCount}
+                productId={product.id}
+              />
+            </div>
           </div>
         </CardHeader>
-        <CardFooter>
-          <div className="flex items-center gap-2">
-            {product.tags?.map((tag) => (
-              <Badge variant="secondary" key={tag}>
-                {tag}
-              </Badge>
-            ))}
-          </div>
+
+        <CardFooter className="mt-auto flex flex-wrap gap-2 pt-2">
+          {product.tags?.slice(0, 4).map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="rounded-full border border-border/40 bg-background/50 backdrop-blur-xl"
+            >
+              {tag}
+            </Badge>
+          ))}
+
+          {product.tags && product.tags.length > 4 && (
+            <Badge variant="outline" className="rounded-full">
+              +{product.tags.length - 4}
+            </Badge>
+          )}
         </CardFooter>
       </Card>
     </Link>

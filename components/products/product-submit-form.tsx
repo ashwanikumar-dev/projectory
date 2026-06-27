@@ -106,7 +106,12 @@ export default function ProductSubmitForm() {
       />
 
       <div className="mt-28 border-t pt-6">
-        <Button type="submit" size="lg" className="w-full" disabled={isPending}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={isPending}
+          className="group h-13 w-full rounded-2xl bg-linear-to-r from-primary via-violet-500 to-fuchsia-500 text-white shadow-[0_12px_35px_rgba(139,92,246,.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(139,92,246,.45)] disabled:pointer-events-none disabled:opacity-70"
+        >
           {isPending ? (
             <>
               <Loader2Icon className="size-4 animate-spin" />
@@ -114,7 +119,7 @@ export default function ProductSubmitForm() {
             </>
           ) : (
             <>
-              <SparklesIcon className="size-4" />
+              <SparklesIcon className="size-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
               Submit Product
             </>
           )}

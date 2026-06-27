@@ -1,13 +1,13 @@
 "use server";
 
 import { db } from "@/db";
-import { products } from "@/db/schema";
+import { comments, products } from "@/db/schema";
 import { FormState } from "@/types";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import z from "zod";
-import { productSchema } from "./product-validations";
+import { commentSchema, productSchema } from "./product-validations";
 
 export const addProductAction = async (
   prevState: FormState,
@@ -46,7 +46,7 @@ export const addProductAction = async (
         success: false,
         errors: validatedData.error.flatten().fieldErrors,
         message: "Invalid data",
-      };  
+      };
     }
     const { name, slug, tagline, description, websiteUrl, tags } =
       validatedData.data;
@@ -176,3 +176,48 @@ export const downvoteProductAction = async (productId: number) => {
     };
   }
 };
+
+export async function addCommentAction(
+  prevState: FormState,
+  formData: FormData,
+) {
+  try {
+    const { userId } = await auth();
+    if (!userId) return null;
+
+    const rawFormData = Object.fromEntries(formData.entries());
+
+    const validatedData = commentSchema.safeParse(rawFormData);
+
+    if (!validatedData.success) {
+      console.log(validatedData.error.flatten().fieldErrors);
+      return {
+        success: false,
+        errors: validatedData.error.flatten().fieldErrors,
+        message: "Invalid data",
+      };
+    }
+    const productId = Number(formData.get("productId"));
+
+    const { content } = validatedData.data;
+
+    await db.insert(comments).values({
+      content,
+      userId: userId,
+      productId,
+    });
+    revalidatePath(`/products/${products.slug}`);
+    return {
+      success: true,
+      message: "Product submitted successfully! It will be reviewed shortly.",
+      errors: undefined,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      errors: undefined,
+      message: "Failed to submit product",
+    };
+  }
+}
