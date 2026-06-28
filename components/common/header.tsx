@@ -2,6 +2,7 @@ import { Show, SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
   CompassIcon,
   FlameIcon,
+  LayoutDashboard,
   LoaderIcon,
   RocketIcon,
   SparklesIcon,
@@ -55,6 +56,16 @@ export default function Header() {
               <CompassIcon className="size-4" />
               Discover
             </Link>
+
+            <Show when={"signed-in"}>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:bg-white/5 hover:text-foreground"
+              >
+                <LayoutDashboard className="size-4" />
+                My dashboard
+              </Link>
+            </Show>
           </nav>
 
           <div className="flex items-center gap-2">
