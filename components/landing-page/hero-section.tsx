@@ -31,7 +31,7 @@ const statsData = [
   {
     icon: RocketIcon,
     value: "2.5K+",
-    label: "Projects Shared",
+    label: "products Shared",
   },
   {
     icon: UsersIcon,
@@ -66,14 +66,14 @@ export default function HeroSection() {
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
             A community platform for creators to showcase their apps, AI tools,
-            SaaS products, and creative projects. Authentic launches, real
+            SaaS products, and creative products. Authentic launches, real
             builders, genuine feedback.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
             <Button asChild size="lg" className="text-base px-8 shadow-lg">
               <Link href="/submit">
                 <SparklesIcon className="size-5" />
-                Share Your Project
+                Share Your product
               </Link>
             </Button>
             <Button
@@ -83,7 +83,7 @@ export default function HeroSection() {
               variant="secondary"
             >
               <Link href="/explore">
-                Explore Projects <ArrowRightIcon className="size-5" />
+                Explore products <ArrowRightIcon className="size-5" />
               </Link>
             </Button>
           </div>

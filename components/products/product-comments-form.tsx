@@ -60,7 +60,7 @@ export default function ProductComment({ productId }: { productId: number }) {
               Leave a Review
             </h2>
             <p className="text-sm text-muted-foreground">
-              Tell others what you think about this project.
+              Tell others what you think about this product.
             </p>
           </div>
         </div>

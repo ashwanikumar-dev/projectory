@@ -1,8 +1,4 @@
-import {
-  BadgeCheckIcon,
-  Clock3Icon,
-  ShieldCheckIcon,
-} from "lucide-react";
+import { BadgeCheckIcon, Clock3Icon, ShieldCheckIcon } from "lucide-react";
 import { Card } from "../ui/card";
 
 const submissionSteps = [
@@ -42,7 +38,7 @@ export default function FormSidebar() {
           </h3>
 
           <p className="mt-1 text-sm text-muted-foreground">
-            Every project goes through a short review before it is published.
+            Every product goes through a short review before it is published.
           </p>
         </div>
 
@@ -88,9 +84,7 @@ export default function FormSidebar() {
                 <BadgeCheckIcon className="size-4 text-primary" />
               </div>
 
-              <p className="text-sm leading-6 text-muted-foreground">
-                {tip}
-              </p>
+              <p className="text-sm leading-6 text-muted-foreground">{tip}</p>
             </div>
           ))}
         </div>

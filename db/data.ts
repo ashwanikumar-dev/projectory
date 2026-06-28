@@ -19,7 +19,7 @@ export const allProducts = [
     id: 2,
     name: "TaskFlow Pro",
     slug: "taskflow-pro",
-    tagline: "Manage projects like never before",
+    tagline: "Manage products like never before",
     description:
       "Streamline your team's workflow with intelligent task management, automated notifications, and real-time collaboration features.",
     websiteUrl: "https://taskflowpro.example.com",

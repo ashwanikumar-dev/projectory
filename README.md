@@ -16,13 +16,13 @@ Projectory is under active development with core discovery, submission, voting, 
 
 Projectory gives independent developers, startup teams, and creative builders a
 focused place to launch apps, AI tools, SaaS products, courses, and other
-projects.
+products.
 
 The platform combines a public discovery experience with an authenticated maker
 workflow and a lightweight moderation queue:
 
 1. Visitors browse approved products and open dedicated product pages.
-2. Signed-in makers submit a project from a validated form.
+2. Signed-in makers submit a product from a validated form.
 3. New submissions enter a pending moderation queue.
 4. Administrators approve or reject submissions.
 5. Approved products appear in ranked, searchable, and recent-launch views.
@@ -34,7 +34,7 @@ cache-aware rendering.
 
 ## Why Projectory?
 
-Most projects never get discovered.
+Most products never get discovered.
 
 Developers, founders, students, and makers spend weeks building products that often receive little visibility, feedback, or recognition.
 
@@ -42,7 +42,7 @@ Projectory exists to help builders launch their work, gain community validation,
 
 ## Highlights
 
-- Community-driven project discovery
+- Community-driven product discovery
 - Authentication with Clerk
 - Admin moderation workflow
 - Product launch and approval system
@@ -74,7 +74,8 @@ Projectory exists to help builders launch their work, gain community validation,
 | Rendering      | Cache Components, Suspense, partial prerendering                               |
 | Deployment     | Next.js-compatible hosting; Vercel and Neon are the natural production pairing |
 
-## Screenshots 
+## Screenshots
+
 will be added after deployment.
 
 ## Features
@@ -120,7 +121,6 @@ will be added after deployment.
 - Suspense loading states and product skeletons
 - Next.js Cache Components and partial prerendering
 - TypeScript strict mode, ESLint, Drizzle migrations, and seed data
-
 
 ## Architecture
 
@@ -176,7 +176,7 @@ npm install
 
 ### 2. Configure the environment
 
-Create `.env` in the project root:
+Create `.env` in the product root:
 
 ```bash
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key
@@ -245,7 +245,7 @@ Set the same environment variables in your hosting provider and apply database
 migrations before serving production traffic. The build requires network access
 to fetch the configured Outfit font from Google Fonts.
 
-## Project structure
+## product structure
 
 ```text
 .
@@ -318,7 +318,7 @@ Implemented protections include:
 - Vote counters clamped at zero in PostgreSQL
 - Environment files excluded from version control
 
-Before a public production launch, the project should also add:
+Before a public production launch, the product should also add:
 
 - A normalized vote table with a unique user/product constraint
 - Authorization checks inside every admin Server Action, not only the page
@@ -342,10 +342,9 @@ Before a public production launch, the project should also add:
 - Database indexes support slug, status, and organization query patterns.
 - Vote changes use atomic SQL updates instead of read-modify-write round trips.
 
-
   ## Vision
 
-Projectory aims to become the go-to platform where developers, founders, students, and makers launch projects, gain visibility, receive feedback, and build credibility within a global builder community.
+Projectory aims to become the go-to platform where developers, founders, students, and makers launch products, gain visibility, receive feedback, and build credibility within a global builder community.
 
 ## Roadmap
 
@@ -391,7 +390,7 @@ Contributions are welcome.
    git checkout -b feat/short-description
    ```
 
-3. Make the change and include tests when the project gains a test harness.
+3. Make the change and include tests when the product gains a test harness.
 4. Run the existing quality checks:
 
    ```bash

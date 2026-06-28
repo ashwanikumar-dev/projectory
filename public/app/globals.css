@@ -4,16 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-.cl-userButtonAvatarBox {
-  width: 36px !important;
-  height: 36px !important;
-}
-
-.cl-userButtonTrigger {
-  width: 36px !important;
-  height: 36px !important;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
