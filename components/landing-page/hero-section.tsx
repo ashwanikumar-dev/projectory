@@ -70,24 +70,28 @@ export default function HeroSection() {
             builders, genuine feedback.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Button asChild size="lg" className="text-base px-8 shadow-lg">
-              <Link href="/submit">
-                <SparklesIcon className="size-5" />
-                Share Your product
+            <Button
+              asChild
+              size="lg"
+              className="h-13 rounded-full border border-white/10 bg-[linear-gradient(180deg,#2b2b2b_0%,#181818_45%,#090909_100%)] px-8 text-base font-semibold text-white shadow-[0_12px_30px_rgba(0,0,0,.45)] transition-all duration-300 hover:border-primary/30 hover:brightness-110 hover:shadow-[0_16px_40px_rgba(168,85,247,.18)] active:scale-[0.98]"
+            >
+              <Link href="/submit" className="group flex items-center gap-2">
+                <SparklesIcon className="size-5 text-primary transition-transform duration-300 group-hover:rotate-12" />
+                Share Your Product
               </Link>
             </Button>
             <Button
               asChild
               size="lg"
-              className="text-base px-8 shadow-lg"
-              variant="secondary"
+              variant="ghost"
+              className="h-13 rounded-full border border-white/10 bg-white/3 px-8 text-base font-semibold text-foreground shadow-[0_8px_20px_rgba(0,0,0,.08)] backdrop-blur-xl transition-all duration-300 hover:border-primary/25 hover:bg-white/6 hover:shadow-[0_12px_30px_rgba(168,85,247,.10)] active:scale-[0.98]"
             >
-              <Link href="/explore">
-                Explore products <ArrowRightIcon className="size-5" />
+              <Link href="/explore" className="group flex items-center gap-2">
+                Explore Products
+                <ArrowRightIcon className="size-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 max-w-2xl w-full">
             {statsData.map((stat) => (
               <StatsCard key={stat.label} {...stat} />

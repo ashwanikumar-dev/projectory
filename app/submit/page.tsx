@@ -6,7 +6,7 @@ import { SparklesIcon } from "lucide-react";
 
 export default function SubmitPage() {
   return (
-    <section className="py-20">
+    <section className="py-24">
       <div className="wrapper">
         <div className="mb-12">
           <SectionHeader
@@ -18,7 +18,7 @@ export default function SubmitPage() {
 
         <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
           {/* Form */}
-          <Card className="border-border/60 p-8 shadow-sm">
+          <Card className="flex h-full border-border/60 p-8 shadow-sm">
             <ProductSubmitForm />
           </Card>
 

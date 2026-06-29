@@ -24,7 +24,7 @@ export default function Footer() {
             <div className="mx-auto max-w-2xl text-center">
               <div className="mb-8 flex justify-center">
                 <Image
-                  src="/footer-logo.png"
+                  src="/footer_logo.png"
                   alt="Projectory"
                   width={110}
                   height={110}
@@ -54,12 +54,13 @@ export default function Footer() {
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center gap-3">
                 <Image
-                  src="/footer-logo.png"
+                  src="/footer_logo.png"
                   alt="Projectory"
                   width={42}
                   height={42}
                   className="object-contain"
                 />
+
                 <div>
                   <h3 className="font-bold tracking-tight">Projectory</h3>
                   <p className="text-sm text-muted-foreground">

@@ -40,77 +40,79 @@ export default function ProductSubmitForm() {
   };
 
   return (
-    <form className="space-y-6" action={formAction}>
-      <FormField
-        label="Product Name"
-        name="name"
-        id="name"
-        placeholder="My Awesome Product"
-        required
-        onChange={() => {}}
-        error={getFieldErrors("name")}
-      />
+    <form className="relative flex w-full flex-1 flex-col" action={formAction}>
+      <div className="space-y-6 pb-28">
+        <FormField
+          label="Product Name"
+          name="name"
+          id="name"
+          placeholder="My Awesome Product"
+          required
+          onChange={() => {}}
+          error={getFieldErrors("name")}
+        />
 
-      <FormField
-        label="Slug"
-        name="slug"
-        id="slug"
-        placeholder="my-awesome-product"
-        required
-        onChange={() => {}}
-        helperText="URL-friendly version of your product name"
-        error={getFieldErrors("slug")}
-      />
+        <FormField
+          label="Slug"
+          name="slug"
+          id="slug"
+          placeholder="my-awesome-product"
+          required
+          onChange={() => {}}
+          helperText="URL-friendly version of your product name"
+          error={getFieldErrors("slug")}
+        />
 
-      <FormField
-        label="Tagline"
-        name="tagline"
-        id="tagline"
-        placeholder="A brief, catchy description"
-        required
-        onChange={() => {}}
-        error={getFieldErrors("tagline")}
-      />
+        <FormField
+          label="Tagline"
+          name="tagline"
+          id="tagline"
+          placeholder="A brief, catchy description"
+          required
+          onChange={() => {}}
+          error={getFieldErrors("tagline")}
+        />
 
-      <FormField
-        label="Description"
-        name="description"
-        id="description"
-        placeholder="Describe what your product does, who it's for, and why it's useful..."
-        required
-        onChange={() => {}}
-        error={getFieldErrors("description")}
-        textarea
-      />
+        <FormField
+          label="Description"
+          name="description"
+          id="description"
+          placeholder="Describe what your product does, who it's for, and why it's useful..."
+          required
+          onChange={() => {}}
+          error={getFieldErrors("description")}
+          textarea
+        />
 
-      <FormField
-        label="Website URL"
-        name="websiteUrl"
-        id="websiteUrl"
-        placeholder="https://yourproduct.com"
-        required
-        onChange={() => {}}
-        error={getFieldErrors("websiteUrl")}
-        helperText="Enter your product's website or landing page"
-      />
+        <FormField
+          label="Website URL"
+          name="websiteUrl"
+          id="websiteUrl"
+          placeholder="https://yourproduct.com"
+          required
+          onChange={() => {}}
+          error={getFieldErrors("websiteUrl")}
+          helperText="Enter your product's website or landing page"
+        />
 
-      <FormField
-        label="Tags"
-        name="tags"
-        id="tags"
-        placeholder="AI, Productivity, SaaS"
-        required
-        onChange={() => {}}
-        error={getFieldErrors("tags")}
-        helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
-      />
+        <FormField
+          label="Tags"
+          name="tags"
+          id="tags"
+          placeholder="AI, Productivity, SaaS"
+          required
+          onChange={() => {}}
+          error={getFieldErrors("tags")}
+          helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
+        />
+      </div>
 
-      <div className="mt-28 border-t pt-6">
+      <div className="border-t pt-6 absolute bottom-0 left-0 w-full">
         <Button
           type="submit"
           size="lg"
           disabled={isPending}
-          className="group h-13 w-full rounded-2xl bg-linear-to-r from-primary via-violet-500 to-fuchsia-500 text-white shadow-[0_12px_35px_rgba(139,92,246,.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(139,92,246,.45)] disabled:pointer-events-none disabled:opacity-70"
+          className="group h-13 w-full rounded-2xl border border-white/10 bg-[linear-gradient(180deg,#2B2B2B_0%,#181818_45%,#090909_100%)] text-white shadow-[0_14px_35px_rgba(0,0,0,.45)] transition-all duration-300 hover:border-primary/25 hover:brightness-110 hover:shadow-[0_18px_45px_rgba(168,85,247,.18)] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60"
         >
           {isPending ? (
             <>
@@ -119,8 +121,8 @@ export default function ProductSubmitForm() {
             </>
           ) : (
             <>
-              <SparklesIcon className="size-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-              Submit Product
+              <SparklesIcon className="size-6 text-primary transition-transform duration-300 group-hover:rotate-12" />
+              <span className="text-lg">Submit Product</span>
             </>
           )}
         </Button>

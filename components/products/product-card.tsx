@@ -43,7 +43,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
             <div className="shrink-0 rounded-2xl border border-border/40 bg-background/60 p-2 backdrop-blur-xl">
               <VotingButtons
-                hasVoted={hasVoted}
+                hasVoted={false}
                 voteCount={product.voteCount}
                 productId={product.id}
               />
