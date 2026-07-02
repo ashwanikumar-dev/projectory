@@ -1,18 +1,15 @@
 "use server";
 
 import { db } from "@/db";
-import { comments, products } from "@/db/schema";
-import { FormState } from "@/types";
+import { comments, products, vote } from "@/db/schema";
+import { VoteType } from "@/types";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import z from "zod";
 import { commentSchema, productSchema } from "./product-validations";
 
-export const addProductAction = async (
-  prevState: FormState,
-  formData: FormData,
-) => {
+export const addProductAction = async (formData: FormData) => {
   try {
     const { userId, orgId } = await auth();
 
@@ -37,23 +34,24 @@ export const addProductAction = async (
 
     const rawFormData = Object.fromEntries(formData.entries());
 
-    //validate the data
+    // validate the data
     const validatedData = productSchema.safeParse(rawFormData);
 
     if (!validatedData.success) {
-      console.log(validatedData.error.flatten().fieldErrors);
+      console.log(validatedData.error.format());
       return {
         success: false,
-        errors: validatedData.error.flatten().fieldErrors,
+        errors: validatedData.error.format(),
         message: "Invalid data",
       };
     }
+
     const { name, slug, tagline, description, websiteUrl, tags } =
       validatedData.data;
 
     const tagsArray = tags ? tags.filter((tag) => typeof tag === "string") : [];
 
-    //transform the data
+    // transform & insert
     await db.insert(products).values({
       name,
       slug,
@@ -78,7 +76,7 @@ export const addProductAction = async (
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.flatten().fieldErrors,
+        errors: error.format(),
         message: "Validation failed. Please check the form.",
       };
     }
@@ -91,96 +89,89 @@ export const addProductAction = async (
   }
 };
 
-export const upvoteProductAction = async (productId: number) => {
+export const voteProductAction = async (productId: number, type: VoteType) => {
   try {
-    const { userId, orgId } = await auth();
+    const { userId } = await auth();
 
     if (!userId) {
       console.log("User not signed in");
       return {
         success: false,
-        message: "You must be signed in to submit a product",
+        currentVote:null,
+        message: "You must be signed in to vote",
       };
     }
 
-    if (!orgId) {
-      console.log("User not a member of an organization");
-      return {
-        success: false,
-        message: "You must be a member of an organization to submit a product",
-      };
-    }
+    const existingVote = await db
+      .select()
+      .from(vote)
+      .where(and(eq(vote.userId, userId), eq(vote.productId, productId)))
+      .limit(1);
 
-    await db
-      .update(products)
-      .set({
-        voteCount: sql`GREATEST(0, vote_count + 1)`,
-      })
-      .where(eq(products.id, productId));
+    const currentVote = existingVote[0] ?? null;
+    let newVote: VoteType | null = null;
+    let delta = 0;
+
+    if (!currentVote) {
+      await db.insert(vote).values({
+        type,
+        userId,
+        productId,
+      });
+      newVote = type;
+      delta = type === "UP" ? 1 : -1;
+      await db
+        .update(products)
+        .set({
+          voteCount: sql`${products.voteCount} + ${delta}`,
+        })
+        .where(eq(products.id, productId));
+    } else if (currentVote.type === type) {
+      await db.delete(vote).where(eq(vote.id, currentVote.id));
+      newVote = null;
+      delta = type === "UP" ? -1 : 1;
+      await db
+        .update(products)
+        .set({
+          voteCount: sql`${products.voteCount} + ${delta}`,
+        })
+        .where(eq(products.id, productId));
+    } else {
+      await db
+        .update(vote)
+        .set({
+          type,
+        })
+        .where(eq(vote.id, currentVote.id));
+      newVote = type;
+      delta = type === "UP" ? 2 : -2;
+      await db
+        .update(products)
+        .set({
+          voteCount: sql`${products.voteCount} + ${delta}`,
+        })
+        .where(eq(products.id, productId));
+    }
 
     revalidatePath("/");
+    revalidatePath(`/product/${productId}`);
 
     return {
       success: true,
-      message: "Product upvoted successfully",
+      currentVote: newVote,
+      message: "Vote updated successfully",
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "Failed to upvote product",
-      voteCount: 0,
+      currentVote: null,
+      message: "Failed to update vote",
     };
   }
 };
 
-export const downvoteProductAction = async (productId: number) => {
-  try {
-    const { userId, orgId } = await auth();
-
-    if (!userId) {
-      console.log("User not signed in");
-      return {
-        success: false,
-        message: "You must be signed in to submit a product",
-      };
-    }
-
-    if (!orgId) {
-      console.log("User not a member of an organization");
-      return {
-        success: false,
-        message: "You must be a member of an organization to submit a product",
-      };
-    }
-
-    await db
-      .update(products)
-      .set({
-        voteCount: sql`GREATEST(0, vote_count - 1)`,
-      })
-      .where(eq(products.id, productId));
-
-    revalidatePath("/");
-
-    return {
-      success: true,
-      message: "Product downvoted successfully",
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      message: "Failed to downvote product",
-      voteCount: 0,
-    };
-  }
-};
-
-export async function addCommentAction(
-  prevState: FormState,
-  formData: FormData,
-) {
+export async function addCommentAction(formData: FormData) {
   try {
     const { userId } = await auth();
     if (!userId) return null;
@@ -190,26 +181,28 @@ export async function addCommentAction(
     const validatedData = commentSchema.safeParse(rawFormData);
 
     if (!validatedData.success) {
-      console.log(validatedData.error.flatten().fieldErrors);
+      console.log(validatedData.error.format());
       return {
         success: false,
-        errors: validatedData.error.flatten().fieldErrors,
+        errors: validatedData.error.format(),
         message: "Invalid data",
       };
     }
-    const productId = Number(formData.get("productId"));
 
+    const productId = Number(formData.get("productId"));
     const { content } = validatedData.data;
 
     await db.insert(comments).values({
       content,
-      userId: userId,
+      userId,
       productId,
     });
-    revalidatePath(`/products/${products.slug}`);
+
+    revalidatePath(`/products/${productId}`);
+
     return {
       success: true,
-      message: "Product submitted successfully! It will be reviewed shortly.",
+      message: "Comment submitted successfully.",
       errors: undefined,
     };
   } catch (error) {
@@ -217,7 +210,7 @@ export async function addCommentAction(
     return {
       success: false,
       errors: undefined,
-      message: "Failed to submit product",
+      message: "Failed to submit comment",
     };
   }
 }

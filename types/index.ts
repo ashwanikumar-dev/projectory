@@ -8,3 +8,5 @@ export type FormState = {
 };
 
 export type ProductType = InferSelectModel<typeof products>;
+
+export type VoteType = "UP" | "DOWN";

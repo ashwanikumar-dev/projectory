@@ -8,8 +8,11 @@ import {
   json,
   uniqueIndex,
   index,
+  unique,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 
+export const VoteTypeEnum = pgEnum("vote_type", ["UP", "DOWN"]);
 // ============= PRODUCTS =============
 export const products = pgTable(
   "products",
@@ -44,6 +47,29 @@ export const products = pgTable(
     statusIdx: index("products_status_idx").on(table.status),
     organizationIdx: index("products_organization_idx").on(
       table.organizationId,
+    ),
+  }),
+);
+
+export const vote = pgTable(
+  "vote",
+  {
+    id: serial("id").primaryKey(),
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    productId: integer("product_id")
+      .notNull()
+      .references(() => products.id),
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    }).defaultNow(),
+    type: VoteTypeEnum("type").notNull(),
+  },
+  (table) => ({
+    productIdx: index("vote_product_idx").on(table.productId),
+    userIdx: index("vote_user_idx").on(table.userId),
+    uniqueVote: unique("vote_user_product_unique").on(
+      table.userId,
+      table.productId,
     ),
   }),
 );

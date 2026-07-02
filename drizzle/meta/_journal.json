@@ -15,6 +15,20 @@
       "when": 1782418889606,
       "tag": "0001_light_moon_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782808233548,
+      "tag": "0002_lively_prodigy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783000769731,
+      "tag": "0003_unknown_payback",
+      "breakpoints": true
     }
   ]
 }

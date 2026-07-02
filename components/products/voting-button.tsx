@@ -1,41 +1,41 @@
 "use client";
 
-import {
-  downvoteProductAction,
-  upvoteProductAction,
-} from "@/lib/products/product-actions";
+import { voteProductAction } from "@/lib/products/product-actions";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { useOptimistic, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
+type VoteType = "UP" | "DOWN";
+
 export default function VotingButtons({
-  hasVoted,
+  currentVote: initialVote,
   voteCount: initialVoteCount,
   productId,
 }: {
-  hasVoted?: boolean;
+  currentVote: VoteType | null;
   voteCount: number;
   productId: number;
 }) {
-  const [optimisticVoteCount, setOptimisticVoteCount] = useOptimistic(
-    initialVoteCount,
-    (currentCount, change: number) => Math.max(0, currentCount + change),
-  );
-
   const [isPending, startTransition] = useTransition();
+  const [currentVote, setCurrentVote] = useState<VoteType | null>(initialVote);
 
-  const handleUpvote = async () => {
+  const upVote = () => {
     startTransition(async () => {
-      setOptimisticVoteCount(1);
-      await upvoteProductAction(productId);
+      const result = await voteProductAction(productId, "UP");
+
+      if (result.success) {
+        setCurrentVote(result.currentVote);
+      }
     });
   };
-
-  const handleDownvote = async () => {
+  const downVote = () => {
     startTransition(async () => {
-      setOptimisticVoteCount(-1);
-      await downvoteProductAction(productId);
+      const result = await voteProductAction(productId, "DOWN");
+
+      if (result.success) {
+        setCurrentVote(result.currentVote);
+      }
     });
   };
 
@@ -49,85 +49,34 @@ export default function VotingButtons({
     >
       {/* Upvote */}
       <Button
-        onClick={handleUpvote}
+        onClick={upVote}
         variant="ghost"
         size="icon"
         disabled={isPending}
         className={cn(
-          `
-        h-5
-        w-5
-
-        rounded-full
-
-        border
-        border-primary/15
-
-        bg-background/50
-
-        transition-all
-        duration-300
-
-        hover:bg-primary/10
-        hover:border-primary/30
-        hover:text-primary
-        hover:scale-105
-        `,
-          hasVoted &&
-            `
-          bg-primary/10
-          border-primary/30
-          text-primary
-          shadow-sm
-        `,
+          "h-5 w-5 rounded-full border border-primary/15 bg-background/50 transition-all duration-300 hover:bg-primary/10 hover:border-primary/30 hover:text-primary hover:scale-105",
+          currentVote === "UP" &&
+            "bg-primary/10 border-primary/30 text-primary shadow-sm",
         )}
       >
         <ChevronUpIcon className="size-3.5" />
       </Button>
 
       {/* Vote Count */}
-      <span
-        className="
-        text-sm
-        font-semibold
-        tracking-tight
-        leading-none
-
-        transition-colors
-        duration-300
-        py-1
-      "
-      >
-        {optimisticVoteCount}
+      <span className="text-sm font-semibold tracking-tight leading-none transition-colors duration-300 py-1">
+        {initialVoteCount}
       </span>
 
       {/* Downvote */}
       <Button
-        onClick={handleDownvote}
+        onClick={downVote}
         variant="ghost"
         size="icon"
         disabled={isPending}
         className={cn(
-          `
-        h-5
-        w-5
-
-        rounded-full
-
-        border
-        border-primary/15
-
-        bg-background/50
-
-        transition-all
-        duration-300
-
-        hover:bg-destructive/10
-        hover:border-destructive/30
-        hover:text-destructive
-        hover:scale-105
-        `,
-          !hasVoted && "opacity-50 cursor-not-allowed",
+          "h-5 w-5 rounded-full border border-primary/15 bg-background/50 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive hover:scale-105",
+          currentVote === "DOWN" &&
+            "bg-destructive/10 border-destructive/30 text-destructive shadow-sm",
         )}
       >
         <ChevronDownIcon className="size-3.5" />
