@@ -12,8 +12,6 @@ import { StarIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function ProductCard({ product }: { product: ProductType }) {
-  const hasVoted = false;
-
   return (
     <Link href={`/products/${product.slug}`} className="group block">
       <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/40 bg-background/60 shadow-[0_12px_35px_rgba(0,0,0,.08)] backdrop-blur-3xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_20px_50px_rgba(139,92,246,.15)]">
@@ -43,7 +41,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
             <div className="shrink-0 rounded-2xl border border-border/40 bg-background/60 p-2 backdrop-blur-xl">
               <VotingButtons
-                hasVoted={false}
+                currentVote={null}
                 voteCount={product.voteCount}
                 productId={product.id}
               />

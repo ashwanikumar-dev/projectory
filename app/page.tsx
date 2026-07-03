@@ -4,6 +4,7 @@ import RecentlyLaunchedProducts from "@/components/landing-page/recently-launche
 import ProductSkeleton from "@/components/products/product-skeleton";
 import { Suspense } from "react";
 
+
 export default function Home() {
   return (
     <div>

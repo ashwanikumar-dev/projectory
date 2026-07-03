@@ -97,7 +97,7 @@ export const voteProductAction = async (productId: number, type: VoteType) => {
       console.log("User not signed in");
       return {
         success: false,
-        currentVote:null,
+        currentVote: null,
         message: "You must be signed in to vote",
       };
     }
@@ -174,7 +174,13 @@ export const voteProductAction = async (productId: number, type: VoteType) => {
 export async function addCommentAction(formData: FormData) {
   try {
     const { userId } = await auth();
-    if (!userId) return null;
+    if (!userId) {
+      return {
+        success: false,
+        errors: undefined,
+        message: "Please sign in first.",
+      };
+    }
 
     const rawFormData = Object.fromEntries(formData.entries());
 
@@ -184,7 +190,7 @@ export async function addCommentAction(formData: FormData) {
       console.log(validatedData.error.format());
       return {
         success: false,
-        errors: validatedData.error.format(),
+        errors: validatedData.error.flatten().fieldErrors,
         message: "Invalid data",
       };
     }

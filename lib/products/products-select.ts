@@ -1,7 +1,10 @@
 import { db } from "@/db";
 import { products } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, and } from "drizzle-orm";
 import { connection } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+import { vote } from "@/db/schema";
+import { VoteType } from "@/types";
 
 export async function getFeaturedProducts() {
   "use cache";
@@ -21,7 +24,7 @@ export async function getAllApprovedProducts() {
     .where(eq(products.status, "approved"))
     .orderBy(desc(products.voteCount));
 
-  return productsData;  
+  return productsData;
 }
 
 export async function getAllProducts() {
@@ -55,4 +58,24 @@ export async function getProductBySlug(slug: string) {
     .limit(1);
 
   return product?.[0] ?? null;
+}
+
+export async function getUserCurrentVote(
+  productId: number,
+): Promise<VoteType | null> {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const result = await db
+    .select({
+      type: vote.type,
+    })
+    .from(vote)
+    .where(and(eq(vote.userId, userId), eq(vote.productId, productId)))
+    .limit(1);
+
+  return result[0]?.type ?? null;
 }

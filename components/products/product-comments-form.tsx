@@ -17,9 +17,9 @@ const initialState: FormState = {
 };
 
 const addCommentStateAction = async (
-  prevState: FormState | null,
+  _prevState: FormState | null,
   formData: FormData,
-) => addCommentAction(prevState ?? initialState, formData);
+) => addCommentAction(formData);
 
 export default function ProductComment({ productId }: { productId: number }) {
   const [state, formAction, isPending] = useActionState(

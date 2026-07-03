@@ -11,6 +11,8 @@ import { Suspense } from "react";
 import { Button } from "../ui/button";
 import CustomUserButton from "./custom-user-button";
 import NavLogo from "../landing-page/nav-logo";
+import { auth } from "@clerk/nextjs/server";
+import { connection } from "next/server";
 
 const navLinkUnderline = `group relative inline-flex items-center gap-2
 after:absolute after:-bottom-1 after:left-0 after:h-[1.5px] after:w-full after:rounded-full after:opacity-90 after:bg-foreground
@@ -18,7 +20,11 @@ after:origin-right after:scale-x-0 after:transition-transform after:duration-300
 hover:after:origin-left hover:after:scale-x-100
 `;
 
-export default function Header() {
+export default async function Header() {
+  await connection();
+  const { userId } = await auth();
+
+  console.log("HEADER USER:", userId);
   return (
     <header className="fixed left-1/2 top-2 z-50 w-[95%] max-w-7xl -translate-x-1/2">
       <div className="relative">

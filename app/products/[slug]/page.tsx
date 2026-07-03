@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   getFeaturedProducts,
   getProductBySlug,
+  getUserCurrentVote,
 } from "@/lib/products/products-select";
 import {
   ArrowLeftIcon,
@@ -36,7 +37,7 @@ export default async function Product({
   if (!product) {
     notFound();
   }
-
+  const currentVote = await getUserCurrentVote(product.id);
   const { name, description, websiteUrl, tags, voteCount, tagline } = product;
 
   return (
@@ -136,8 +137,8 @@ export default async function Product({
 
                           <VotingButtons
                             productId={product.id}
-                            voteCount={voteCount}
-                            hasVoted={false}
+                            voteCount={product.voteCount}
+                            currentVote={currentVote}
                           />
                         </div>
                       </div>
