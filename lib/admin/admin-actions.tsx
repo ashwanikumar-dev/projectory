@@ -63,6 +63,8 @@ export const deleteProductionAction = async (productId: ProductType["id"]) => {
       })
       .where(eq(products.id, productId));
     console.log("deleted");
+    revalidatePath("/");
+    revalidatePath("/explore");
     revalidatePath("/admin");
   } catch (error) {
     console.log(error);
