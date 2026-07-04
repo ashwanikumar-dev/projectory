@@ -54,7 +54,7 @@ export default function VotingButtons({
         size="icon"
         disabled={isPending}
         className={cn(
-          "h-5 w-5 rounded-full border border-primary/15 bg-background/50 transition-all duration-300 hover:bg-primary/10 hover:border-primary/30 hover:text-primary hover:scale-105",
+          "h-5 w-5 rounded-full border border-primary/15 bg-background/50 transition-colors duration-300 md:hover:scale-105 md:hover:bg-primary/10 md:hover:border-primary/30 md:hover:text-primary",
           currentVote === "UP" &&
             "bg-primary/10 border-primary/30 text-primary shadow-sm",
         )}
@@ -74,7 +74,7 @@ export default function VotingButtons({
         size="icon"
         disabled={isPending}
         className={cn(
-          "h-5 w-5 rounded-full border border-primary/15 bg-background/50 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive hover:scale-105",
+          "h-5 w-5 rounded-full border border-primary/15 bg-background/50  transition-transform duration-300 md:hover:scale-105 md:hover:bg-destructive/10 md:hover:border-destructive/30 md:hover:text-destructive",
           currentVote === "DOWN" &&
             "bg-destructive/10 border-destructive/30 text-destructive shadow-sm",
         )}

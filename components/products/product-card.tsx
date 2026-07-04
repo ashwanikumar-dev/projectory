@@ -14,9 +14,9 @@ import Link from "next/link";
 export default function ProductCard({ product }: { product: ProductType }) {
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/40 bg-background/60 shadow-[0_12px_35px_rgba(0,0,0,.08)] backdrop-blur-3xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_20px_50px_rgba(139,92,246,.15)]">
+      <Card className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/40 bg-background/60 shadow-[0_12px_35px_rgba(0,0,0,.08)] backdrop-blur-lg transition-all duration-300 md:hover:-translate-y-1 hover:border-primary/30 md:hover:shadow-[0_20px_50px_rgba(139,92,246,.15)]">
         {/* Glow */}
-        <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-violet-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 hidden bg-linear-to-br from-primary/5 via-transparent to-violet-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:block" />
 
         <CardHeader className="flex-1 pb-5">
           <div className="flex items-start justify-between gap-5">

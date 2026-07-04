@@ -11,8 +11,7 @@ import { Suspense } from "react";
 import { Button } from "../ui/button";
 import CustomUserButton from "./custom-user-button";
 import NavLogo from "../landing-page/nav-logo";
-import { auth } from "@clerk/nextjs/server";
-import { connection } from "next/server";
+import MobileNav from "./mobile-nav";
 
 const navLinkUnderline = `group relative inline-flex items-center gap-2
 after:absolute after:-bottom-1 after:left-0 after:h-[1.5px] after:w-full after:rounded-full after:opacity-90 after:bg-foreground
@@ -21,15 +20,11 @@ hover:after:origin-left hover:after:scale-x-100
 `;
 
 export default async function Header() {
-  await connection();
-  const { userId } = await auth();
-
-  console.log("HEADER USER:", userId);
   return (
     <header className="fixed left-1/2 top-2 z-50 w-[95%] max-w-7xl -translate-x-1/2">
       <div className="relative">
         <div className="absolute inset-x-12 -bottom-px h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
-        <div className="flex h-16 items-center justify-between rounded-full border border-border/50 bg-background/65 px-5 shadow-[0_12px_50px_rgba(0,0,0,.18)] backdrop-blur-3xl lg:px-7">
+        <div className="flex h-14 md:h-16 items-center justify-between rounded-full border border-border/50 bg-background/65 px-3 md:px-5 shadow-[0_12px_50px_rgba(0,0,0,.18)] backdrop-blur-3xl lg:px-7">
           <NavLogo />
           <nav className="hidden items-center rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-xl md:flex">
             <Link
@@ -62,7 +57,7 @@ export default async function Header() {
               </Link>
             </Show>
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
             <Suspense
               fallback={
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
@@ -99,6 +94,7 @@ export default async function Header() {
               </Show>
             </Suspense>
           </div>
+          <MobileNav />
         </div>
       </div>
     </header>
