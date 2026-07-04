@@ -41,7 +41,7 @@ export const addProductAction = async (formData: FormData) => {
       console.log(validatedData.error.format());
       return {
         success: false,
-        errors: validatedData.error.format(),
+        errors: validatedData.error.flatten().fieldErrors,
         message: "Invalid data",
       };
     }
@@ -76,7 +76,7 @@ export const addProductAction = async (formData: FormData) => {
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.format(),
+        errors: error.flatten().fieldErrors,
         message: "Validation failed. Please check the form.",
       };
     }

@@ -14,9 +14,16 @@ const initialState: FormState = {
   message: "",
 };
 
+const addProductStateAction = async (
+  _prevState: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  return addProductAction(formData);
+};
+
 export default function ProductSubmitForm() {
   const [state, formAction, isPending] = useActionState(
-    addProductAction,
+    addProductStateAction,
     initialState,
   );
 
