@@ -34,7 +34,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                 )}
               </div>
 
-              <CardDescription className="mt-3 line-clamp-3 min-h-21 leading-6">
+              <CardDescription className="mt-3 line-clamp-5 md:line-clamp-3 leading-6">
                 {product.description}
               </CardDescription>
             </div>
