@@ -66,7 +66,9 @@ export default async function ProductReviews({
                 <span className="h-1 w-1 rounded-full bg-muted-foreground/50" />
 
                 <span className="text-xs text-muted-foreground">
-                  {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString() : "Unknown date"}
+                  {comment.createdAt
+                    ? new Date(comment.createdAt).toLocaleDateString()
+                    : "Unknown date"}
                 </span>
               </div>
 
@@ -76,25 +78,37 @@ export default async function ProductReviews({
               <div className="mt-4 flex items-center gap-5">
                 <button
                   type="button"
-                  className="group inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+                  disabled
+                  className="inline-flex cursor-not-allowed items-center gap-1.5 text-xs font-medium text-muted-foreground/60"
                 >
-                  <MessageCircleIcon className="size-3.5 transition-transform group-hover:scale-110" />
+                  <MessageCircleIcon className="size-3.5" />
                   Reply
+                  <span className="rounded-full border border-border/50 bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                    Soon
+                  </span>
                 </button>
 
                 <button
                   type="button"
-                  className="group inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  disabled
+                  className="inline-flex cursor-not-allowed items-center gap-1.5 text-xs font-medium text-muted-foreground/60"
                 >
-                  <ThumbsUpIcon className="size-3.5 transition-transform group-hover:scale-110" />
+                  <ThumbsUpIcon className="size-3.5" />
                   Helpful
+                  <span className="rounded-full border border-border/50 bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                    Soon
+                  </span>
                 </button>
 
                 <button
                   type="button"
-                  className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  disabled
+                  className="inline-flex cursor-not-allowed items-center gap-1.5 text-xs font-medium text-muted-foreground/60"
                 >
                   Report
+                  <span className="rounded-full border border-border/50 bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                    Soon
+                  </span>
                 </button>
               </div>
             </div>
