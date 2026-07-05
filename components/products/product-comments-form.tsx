@@ -32,10 +32,12 @@ export default function ProductComment({ productId }: { productId: number }) {
   useEffect(() => {
     if (!message) return;
 
-    if (errors) {
-      toast.error("Couldn't post your review. Please try again.");
+    if (state.success) {
+      toast.success(message);
+    } else {
+      toast.error(message);
     }
-  }, [message, errors]);
+  }, [state, message]);
 
   const getFieldErrors = (fieldName: string): string[] => {
     if (!errors) return [];
@@ -88,7 +90,7 @@ export default function ProductComment({ productId }: { productId: number }) {
             <Button
               type="submit"
               disabled={isPending}
-              className="group h-12 rounded-2xl bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 px-7 text-white shadow-xl shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-primary/50 active:scale-95"
+              className="group h-12 rounded-2xl bg-linear-to-r from-primary via-violet-500 to-fuchsia-500 px-7 text-white shadow-xl shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-primary/50 active:scale-95"
             >
               {isPending ? (
                 <>
