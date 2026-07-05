@@ -6,6 +6,11 @@ A full-stack launch and discovery platform where makers submit products, the
 community surfaces promising work through votes, and moderators curate what
 goes live.
 
+![Projectory Cover](./screenshots/home.png)
+
+**🌐 Live Demo:** https://projectory-xi.vercel.app/  
+**📦 GitHub Repository:** https://github.com/Ashwanikr2728/projectory
+
 [Explore the architecture](#architecture) |
 [Run locally](#getting-started) |
 [View the roadmap](#roadmap)
@@ -65,7 +70,7 @@ Projectory exists to help builders launch their work, gain community validation,
 | Layer          | Technology                                                                     |
 | -------------- | ------------------------------------------------------------------------------ |
 | Frontend       | Next.js 16 App Router, React 19, TypeScript                                    |
-| Styling        | Tailwind CSS 4, shadcn, Radix UI, Lucide icons                                 |
+| Styling        | Tailwind CSS 4, shadcn/ui, Radix UI, Lucide icons                              |
 | Server         | React Server Components, Server Actions, Next.js Proxy                         |
 | Database       | PostgreSQL on Neon                                                             |
 | ORM            | Drizzle ORM and Drizzle Kit                                                    |
@@ -76,7 +81,33 @@ Projectory exists to help builders launch their work, gain community validation,
 
 ## Screenshots
 
-will be added after deployment.
+### 🏠 Home
+
+![Home](./screenshots/home.png)
+
+### ⭐ Featured Products
+
+![Featured Products](./screenshots/featured-product.png)
+
+### 🔍 Explore
+
+![Explore](./screenshots/explore.png)
+
+### 🚀 Submit Product
+
+![Submit Product](./screenshots/product-submit.png)
+
+### 📄 Product Details
+
+![Product Details](./screenshots/product-details.png)
+
+### 📊 Dashboard
+
+![Dashboard](./screenshots/user-dashboard.png)
+
+### 🛠️ Admin Panel
+
+![Admin Panel](./screenshots/admin-dashboard.png)
 
 ## Features
 
@@ -245,7 +276,7 @@ Set the same environment variables in your hosting provider and apply database
 migrations before serving production traffic. The build requires network access
 to fetch the configured Outfit font from Google Fonts.
 
-## product structure
+## Project Structure
 
 ```text
 .
