@@ -11,20 +11,12 @@ import { commentSchema, productSchema } from "./product-validations";
 
 export const addProductAction = async (formData: FormData) => {
   try {
-    const { userId, orgId } = await auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return {
         success: false,
         message: "You must be signed in to submit a product",
-        errors: undefined,
-      };
-    }
-
-    if (!orgId) {
-      return {
-        success: false,
-        message: "You must be a member of an organization to submit a product",
         errors: undefined,
       };
     }
@@ -61,7 +53,6 @@ export const addProductAction = async (formData: FormData) => {
       tags: tagsArray,
       status: "pending",
       submittedBy: userEmail,
-      organizationId: orgId,
       userId,
     });
 

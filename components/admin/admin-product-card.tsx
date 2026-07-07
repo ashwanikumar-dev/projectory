@@ -5,7 +5,7 @@ import { Trash2Icon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardTitle } from "../ui/card";
-import AdminActions, { handleDelete } from "./admin-actions";
+import AdminActions, { handleDelete } from "./admin-action";
 import { cn } from "@/lib/utils";
 
 export default function AdminProductCard({
