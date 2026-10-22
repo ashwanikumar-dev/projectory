@@ -37,6 +37,10 @@ export default function RootLayout({
             <Footer />
           </ClerkProvider>
         </Suspense>
+        {/* <script
+          src="https://support-ai-ivory-three.vercel.app/chatBot.js"
+          data-owner-id="usr_138102351905947910"
+        ></script> */}
       </body>
     </html>
   );
